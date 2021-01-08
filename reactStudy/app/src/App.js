@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './color.module.css'
 import './color.css'
+import { Button, message} from 'antd';
+
+
 console.log(styles)
 const data =[
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football",id:'1'},
@@ -12,6 +15,9 @@ const data =[
 ];
 
 class ProductRow extends React.Component{
+  handleClick(){
+      message.success('ant 测试')
+  }
   render(){
     return(
       <tr>
@@ -21,6 +27,7 @@ class ProductRow extends React.Component{
         <td>
           <span>{this.props.price}</span>
         </td>
+        <td><Button className={styles.red} type="primary" onClick={this.handleClick}>Button</Button></td>
       </tr>
     )
   }
@@ -42,6 +49,7 @@ class ProductTable extends React.Component{
             <th>Price</th>
           </tr>
           {this.props.children}
+          
         </tbody>
       </table>
     )
