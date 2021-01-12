@@ -8,10 +8,10 @@ export default class App extends React.Component{
   render(){
     return (
       <BrowserRouter>
-      <Switch>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/" component={Admin}></Route>
-      </Switch>
+        <Switch>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/" component={Admin}></Route>
+        </Switch>
       </BrowserRouter>
     )
   }
