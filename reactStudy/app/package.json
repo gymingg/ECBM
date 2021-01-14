@@ -11,6 +11,7 @@
     "babel-plugin-import": "^1.13.3",
     "craco-less": "^1.17.1",
     "customize-cra": "^1.0.0",
+    "jsonp": "^0.2.1",
     "less": "^4.0.0",
     "less-loader": "^7.2.1",
     "react": "^17.0.1",
@@ -44,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jsonp": "^0.2.1"
   }
 }

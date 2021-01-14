@@ -1,12 +1,11 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom' 
-import {message} from 'antd'
 import {Redirect} from 'react-router-dom'
 import store from 'store'
 import { Layout } from 'antd';
 import './admin.less'
 import LeftNav from '../../components/left-nav/left-nav.jsx'
-import Top from '../../components/header/header.jsx'
+import Header from '../../components/header/header.jsx'
 import Home from '../home/home'
 import Category from '../category/category'
 import Product from '../product/product'
@@ -15,7 +14,7 @@ import User from '../user/user'
 import Bar from '../charts/bar'
 import Line from '../charts/line'
 import Pie from '../charts/pie'
-const { Header, Footer, Sider, Content } = Layout;
+const { Footer, Sider, Content } = Layout;
 
 //后台管理的组件
 export default class Admin extends React.Component{
@@ -50,8 +49,8 @@ export default class Admin extends React.Component{
                     minHeight: '100vh'
                   }}
                 >
-                    <Header className="header"><Top username={user.username}></Top></Header>
-                    <Content className="content">
+                    <Header {...this.props} className="header" username={user.username}></Header>
+                    <Content className="content" style={{backgroundColor:'white',margin:'15px'}}>
                     <Switch>
                         <Route path='/home' component={Home}/>
                         <Route path='/category' component={Category}/>
