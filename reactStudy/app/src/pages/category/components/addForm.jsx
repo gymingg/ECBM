@@ -1,23 +1,23 @@
 import React from 'react'
 import {Form, Input, Select} from 'antd'
-import {  Button, Checkbox } from 'antd';
+
 const {Option} = Select
 
 
-export default class AddForm extends React.Component{
-    onFinish = () => {
-        console.log(1)
-    }
-    render(){
+export default function AddForm (props) {
+    const [form] = Form.useForm()
+    const {parentId,dataSource} = props
+    props.setForm(form)
         return(
             <Form
-              onFinish={this.onFinish}
+                form = {form}
             >
-                <Form.Item>
-                    <Select defaultValue="0">
+                <Form.Item initialValue={parentId} name="parentId">
+                    <Select >
                         <Option value='0'>一级分类</Option>
-                        <Option value='1'>电脑</Option>
-                        <Option value='2'>手机</Option>
+                        {
+                            dataSource.map(item => <Option key={item._id} value={item._id}>{item.name}</Option>)
+                        }
                     </Select>
                 </Form.Item>
                 <Form.Item 
@@ -28,5 +28,4 @@ export default class AddForm extends React.Component{
                 </Form.Item>
             </Form>
         )
-    }
 }

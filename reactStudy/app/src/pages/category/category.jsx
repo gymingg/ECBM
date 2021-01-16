@@ -4,7 +4,7 @@ import {
     ArrowRightOutlined,
     PlusOutlined
   } from '@ant-design/icons'
-import {Button, Table, Modal, Card} from 'antd'
+import {Button, Table, Modal, Card,message} from 'antd'
 import axios from 'axios'
 import AddForm from './components/addForm.jsx'
 import UpdateCategory from './components/updateForm.jsx'
@@ -39,11 +39,12 @@ export default class Category extends React.Component{
     }
 
     //获取一级或二级分类
-    getCategory = async ()=>{
+    getCategory = async (parentId)=>{
         this.setState({
             loading:true
         })
-        const {data:dataSource} = await axios.get('/manage/category/list',{params: {parentId: this.state.parentId}})
+        parentId = parentId || this.state.parentId
+        const {data:dataSource} = await axios.get('/manage/category/list',{params: {parentId}})
         if (dataSource.status === 0) {
             if(this.state.parentId === '0'){
                 this.setState({
@@ -93,7 +94,6 @@ export default class Category extends React.Component{
     }
 
     hiddenForm = () =>{
-        console.log(this.form)
         this.form.resetFields()
         this.setState({
             isVisible: 0
@@ -108,17 +108,46 @@ export default class Category extends React.Component{
         })
     }
 
-    addCategory = () => {}
+    addCategory = async () => {
+        this.form.validateFields().then(async values => {
+            const {parentId,categoryName} = this.form.getFieldValue()
+            const {data:res} = await axios.post('manage/category/add',{parentId,categoryName})
+            if(res.status === 0){
+                this.form.resetFields()
+                this.hiddenForm()
+                if(parentId === this.state.parentId){
+                    this.getCategory()
+                }else if(parentId === '0') {
+                    this.getCategory('0')
+                }
+                
+            }else{
+                message.error('添加失败')
+            }
+        })
+        .catch(err => {
+            message.error('分类名不能为空')
+        })
+    }
 
     //修改分类信息
     updateCategory = async () => {
-        const id = this.state.categories._id
-        const name = this.form.getFieldValue('categoryName')
-        const {data:res} = await axios.post('/manage/category/update',{categoryId:id,categoryName:name})
-        console.log(res)
-        this.form.resetFields()
-        this.hiddenForm()
-        this.getCategory()
+        this.form.validateFields().then(async (values) => {
+                const id = this.state.categories._id
+                const name = this.form.getFieldValue('categoryName')
+                const {data:res} = await axios.post('/manage/category/update',{categoryId:id,categoryName:name})
+                if(res.status === 0) {
+                    this.form.resetFields()
+                    this.hiddenForm()
+                    this.getCategory()
+                }
+                else{
+                    message.error('更新失败')
+                }
+            })
+            .catch(err => {
+                message.error('分类名不能为空')
+            })
     }
 
     componentDidMount(){
@@ -130,11 +159,11 @@ export default class Category extends React.Component{
         const extra = (<Button onClick={this.showAddForm} type="primary"><PlusOutlined />添加分类</Button>)
         const {columns, dataSource, subSource, parentId, loading, isVisible} = this.state;
         const categoryName = this.state.categories.name
-        return(
+        return( 
             <Card className={styles.container} title={title} extra={extra}>
                 <Table loading={loading} rowKey='_id' pagination={{defaultPageSize:5,}} bordered columns={columns} dataSource={parentId==='0'? dataSource : subSource} />
                 <Modal getContainer={false} title="添加分类" visible={isVisible===1?true:false} onOk={this.addCategory} onCancel={this.hiddenForm}>
-                    <AddForm></AddForm>
+                    <AddForm parentId={parentId} dataSource={dataSource} setForm={(form)=>{this.form = form}}></AddForm>
                 </Modal>
                 <Modal getContainer={false} title="修改分类" visible={isVisible===2?true:false} onOk={this.updateCategory} onCancel={this.hiddenForm}>
                     <UpdateCategory setForm={(form) => {this.form = form}} categoryName={categoryName}></UpdateCategory>
