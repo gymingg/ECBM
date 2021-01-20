@@ -38,19 +38,15 @@ export default class Admin extends React.Component{
             return <Redirect to="/login"></Redirect>
         }
         return (
-            <Layout className="container">
-                <Sider
-                 style={{
-                    height: '100vh'
-                  }}
-                ><LeftNav {...this.props}></LeftNav></Sider>
+            <Layout className="container" >
+                <Sider style={{ height: '100vh', left: 0,overflow: 'auto',position: 'fixed',}}>
+                    <LeftNav {...this.props}></LeftNav>
+                </Sider>
                 <Layout
-                style={{
-                    minHeight: '100vh'
-                  }}
+                style={{ marginLeft: 200,padding: 10 }}
                 >
                     <Header {...this.props} className="header" username={user.username}></Header>
-                    <Content className="content" style={{backgroundColor:'white',margin:'15px'}}>
+                    <Content className="content" style={{backgroundColor:'white',margin:'15px 0 0 0',minHeight:'100vh'}}>
                     <Switch>
                         <Route path='/home' component={Home}/>
                         <Route path='/category' component={Category}/>

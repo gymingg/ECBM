@@ -4,7 +4,7 @@ export default class LinkButton extends React.Component{
 
     render(){
         return(
-            <span className={styles.link}>{this.props.children}</span>
+            <span onClick={this.props.onClick} className={styles.link}>{this.props.children}</span>
         )
     }
 }

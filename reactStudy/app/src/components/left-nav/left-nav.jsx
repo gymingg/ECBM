@@ -23,6 +23,9 @@ export default class LeftNav extends React.Component {
             }
          */
         let path = this.props.location.pathname
+        if(path.indexOf('/product') === 0) {
+           path = '/product'
+        }
         return menuList.reduce( (pre,item) => {
             //判断是否有子标签
             if (!item.children) {
@@ -47,6 +50,9 @@ export default class LeftNav extends React.Component {
     }
   render() {
     let path = this.props.location.pathname
+    if(path.indexOf('/product') === 0) {
+      path = '/product'
+    }
     return (
       <div className="container">
         <Link to="/">

@@ -8,9 +8,9 @@ export default class Product extends React.Component{
     render(){
         return(
             <Switch>
-                <Route to="/product" exact component={Home}></Route>
-                <Route to="/product/addProduct" component={AddProduct}></Route>
-                <Route to="/product/details" component={Detail}></Route>
+                <Route path="/product" exact={true} component={Home}></Route>
+                <Route path="/product/addProduct" component={AddProduct}></Route>
+                <Route path="/product/details" component={Detail}></Route>
                 <Redirect to="/product"></Redirect>
             </Switch>
         )

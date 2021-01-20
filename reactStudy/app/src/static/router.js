@@ -1,0 +1,1 @@
+export default  { baseRoute:'http://localhost:5000',baseImageRoute:'http://localhost:5000/upload/'}
