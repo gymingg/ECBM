@@ -53,14 +53,15 @@ export default class Header extends React.Component{
         let title
         menuInfo.forEach(item => {
             if(item.key === path) {
-                title = item.title
+              return title = item.title
             }else if(item.children){
-                const citem = item.children.find(citem => citem.key === path)
+                const citem = item.children.find(citem =>  path.indexOf(citem.key) === 0)
                 if(citem){
-                    title = citem.title
+                  return  title = citem.title
                 }
             }
         })
+        this.title = title
         return title
     }
 
@@ -100,7 +101,7 @@ export default class Header extends React.Component{
                     <span className={styles.blue} onClick={this.logout}>退出</span>
                 </div>
                 <div className={styles.headerBottom}>
-                    <div className={styles.headerBottomLeft}>{this.getTitle()}</div>
+                    <div className={styles.headerBottomLeft}>{this.title}</div>
                     <div className={styles.headerBottomRight}><span>{this.state.currentTime} </span>{this.state.weather}</div>
                 </div>
             </div>

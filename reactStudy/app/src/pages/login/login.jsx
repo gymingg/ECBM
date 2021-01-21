@@ -14,6 +14,7 @@ const NormalLoginForm = (props) => {
       if(res.status === 0) {
         message.success('登入成功')
         let user = res.data
+        delete user.password
         store.set('user',user)
         props.history.replace('/')
       }else{
