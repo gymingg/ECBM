@@ -18,6 +18,7 @@
 ---- 打包后的文件
 
 ####src####
+
 |  assets---logo.png  *logo图片*
 
 |  components ---*组件* 
