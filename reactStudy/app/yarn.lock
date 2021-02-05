@@ -4348,6 +4348,11 @@ draftjs-to-html@^0.9.1:
   resolved "https://registry.npm.taobao.org/draftjs-to-html/download/draftjs-to-html-0.9.1.tgz#1c870fbb588d2390204cb4d0ee7e04ad0c709969"
   integrity sha1-HIcPu1iNI5AgTLTQ7n4ErQxwmWk=
 
+draftjs-utils@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.npm.taobao.org/draftjs-utils/download/draftjs-utils-0.10.2.tgz#a7f16d2c1c174ac38ba3bbf700c256f176b2699c"
+  integrity sha1-p/FtLBwXSsOLo7v3AMJW8XayaZw=
+
 duplexer@^0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
@@ -7147,6 +7152,13 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
+linkify-it@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npm.taobao.org/linkify-it/download/linkify-it-2.2.0.tgz#e3b54697e78bf915c70a38acd78fd09e0058b1cf"
+  integrity sha1-47VGl+eL+RXHCjis14/QngBYsc8=
+  dependencies:
+    uc.micro "^1.0.1"
+
 load-json-file@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-2.0.0.tgz#7947e42149af80d696cbf797bcaabcfe1fe29ca8"
@@ -9705,6 +9717,17 @@ react-dom@^17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
+react-draft-wysiwyg@^1.14.5:
+  version "1.14.5"
+  resolved "https://registry.npm.taobao.org/react-draft-wysiwyg/download/react-draft-wysiwyg-1.14.5.tgz#82e34ae3472b815b5d9f70615f40e13afcbc2055"
+  integrity sha1-guNK40crgVtdn3BhX0DhOvy8IFU=
+  dependencies:
+    classnames "^2.2.6"
+    draftjs-utils "^0.10.2"
+    html-to-draftjs "^1.5.0"
+    linkify-it "^2.2.0"
+    prop-types "^15.7.2"
+
 react-error-overlay@^6.0.8:
   version "6.0.8"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.8.tgz#474ed11d04fc6bda3af643447d85e9127ed6b5de"
@@ -9916,6 +9939,14 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
+
+redux@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.npm.taobao.org/redux/download/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
+  integrity sha1-TbXeWBbheJHeioDEJCMtBvBR2T8=
+  dependencies:
+    loose-envify "^1.4.0"
+    symbol-observable "^1.2.0"
 
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
@@ -11098,6 +11129,11 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+symbol-observable@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npm.taobao.org/symbol-observable/download/symbol-observable-1.2.0.tgz?cache=0&sync_timestamp=1604337936252&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsymbol-observable%2Fdownload%2Fsymbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha1-wiaIrtTqs83C3+rLtWFmBWCgCAQ=
+
 symbol-tree@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
@@ -11457,6 +11493,11 @@ ua-parser-js@^0.7.18:
   version "0.7.23"
   resolved "https://registry.npm.taobao.org/ua-parser-js/download/ua-parser-js-0.7.23.tgz#704d67f951e13195fbcd3d78818577f5bc1d547b"
   integrity sha1-cE1n+VHhMZX7zT14gYV39bwdVHs=
+
+uc.micro@^1.0.1:
+  version "1.0.6"
+  resolved "https://registry.npm.taobao.org/uc.micro/download/uc.micro-1.0.6.tgz#9c411a802a409a91fc6cf74081baba34b24499ac"
+  integrity sha1-nEEagCpAmpH8bPdAgbq6NLJEmaw=
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

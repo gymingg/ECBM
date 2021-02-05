@@ -11,7 +11,8 @@ export default class Header extends React.Component{
         super(props)
         this.state = {
             weather : '',
-            currentTime: ''
+            currentTime: '',
+            title:''
         }
         this.intervalID = ''
         this.getWeather = this.getWeather.bind(this)
@@ -48,8 +49,7 @@ export default class Header extends React.Component{
     }
 
     //获取当前页面标题
-    getTitle(){
-        const path = this.props.location.pathname
+    async getTitle(path = this.props.location.pathname){
         let title
         menuInfo.forEach(item => {
             if(item.key === path) {
@@ -61,7 +61,9 @@ export default class Header extends React.Component{
                 }
             }
         })
-        this.title = title
+        await this.setState({
+            title
+        })
         return title
     }
 
@@ -86,6 +88,11 @@ export default class Header extends React.Component{
         })
         this.getTime()
         this.getTitle()
+        console.log('didMounnt')
+    }
+
+    UNSAFE_componentWillReceiveProps(newprops) {
+        this.getTitle(newprops.location.pathname)
     }
 
     componentWillUnmount(){
@@ -93,7 +100,6 @@ export default class Header extends React.Component{
     }
 
     render(){
-        
         return (
             <div className={styles.container}>
                 <div className={styles.headerTop}>
@@ -101,7 +107,7 @@ export default class Header extends React.Component{
                     <span className={styles.blue} onClick={this.logout}>退出</span>
                 </div>
                 <div className={styles.headerBottom}>
-                    <div className={styles.headerBottomLeft}>{this.title}</div>
+                    <div className={styles.headerBottomLeft}>{this.state.title}</div>
                     <div className={styles.headerBottomRight}><span>{this.state.currentTime} </span>{this.state.weather}</div>
                 </div>
             </div>

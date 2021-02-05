@@ -63,6 +63,7 @@ const NormalLoginForm = (props) => {
 //登入的组件
 export default class Login extends React.Component{
     render(){
+      //判断是否登入，若已登入则跳转到主页
         const user = store.get('user')
         if(user && user._id) {
           return <Redirect to="/"></Redirect>

@@ -99,11 +99,17 @@ export default class Role extends Component {
         const _id = this.state.role._id
         const {data:res} = await axios.post('/manage/role/update',{menus,auth_name,auth_time,_id})
         if(res.status === 0 ){
+          if(_id === store.get('user').role_id){
+            message.info('修改了权限，请重新登入')
+            store.remove('user')
+            this.props.history.replace('/login')
+          }else{
             message.success('权限添加成功')
             this.getRoles()
             this.setState({
                 isShowAuth:false
             })
+          }
         }
     }
 

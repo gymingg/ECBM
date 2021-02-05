@@ -12,6 +12,7 @@ function getBase64(file) {
   });
 }
 
+//上传图片组件
 export default class PicturesWall extends React.Component {
   
   constructor(props){
@@ -26,10 +27,12 @@ export default class PicturesWall extends React.Component {
   }
   baseRoute = BaseRoute.baseRoute
   baseImageRoute = BaseRoute.baseImageRoute
+  //隐藏放大镜效果
   handleCancel = () => this.setState({ previewVisible: false });
 
   handlePreview = async file => {
     if (!file.url && !file.preview) {
+      //当图片还没上传时根据base64获取图片
       file.preview = await getBase64(file.originFileObj);
     }
 
@@ -39,11 +42,13 @@ export default class PicturesWall extends React.Component {
       previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
     });
   };
+  //获取照片名
   getFileList(){
       return this.state.fileList.map(item => {
           return item.name
       })
   }
+  //上传照片
   handleChange = async ({ file,fileList }) => {
       const res = file.response
       console.log(fileList)

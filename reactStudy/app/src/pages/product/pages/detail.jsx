@@ -31,17 +31,9 @@ export default class ProductDetail extends Component {
       const cName1 = result.data.name
       this.setState({cName1})
     } else { // 二级分类下的商品
-      /*
-      //通过多个await方式发多个请求: 后面一个请求是在前一个请求成功返回之后才发送
-      const result1 = await reqCategory(pCategoryId) // 获取一级分类列表
-      const result2 = await reqCategory(categoryId) // 获取二级分类
-      const cName1 = result1.data.name
-      const cName2 = result2.data.name
-      */
 
       // 一次性发送多个请求, 只有都成功了, 才正常处理
       const results = await Promise.all([axios.get('/manage/category/info',{params:{categoryId:pCategoryId}}), axios.get('/manage/category/info',{params:{categoryId}})])
-      
       const cName1 = results[0].data.data.name
       const cName2 = results[1].data.data.name
       this.setState({

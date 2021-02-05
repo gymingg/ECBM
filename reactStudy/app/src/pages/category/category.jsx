@@ -80,12 +80,14 @@ export default class Category extends React.Component{
         })
     }
 
+    //展示添加表单
     showAddForm = () => {
         this.setState({
             isVisible:1
         })
     }
 
+    //展示修改表单
     showUpdateForm = (categories) => {
         this.setState({
             isVisible:2,
@@ -93,6 +95,7 @@ export default class Category extends React.Component{
         })
     }
 
+    //隐藏表单
     hiddenForm = () =>{
         this.form.resetFields()
         this.setState({
@@ -108,7 +111,9 @@ export default class Category extends React.Component{
         })
     }
 
+    //添加商品分类
     addCategory = async () => {
+        //判断表单是否通过验证，如果通过则执行下列操作
         this.form.validateFields().then(async values => {
             const {parentId,categoryName} = this.form.getFieldValue()
             const {data:res} = await axios.post('manage/category/add',{parentId,categoryName})
@@ -125,6 +130,7 @@ export default class Category extends React.Component{
                 message.error('添加失败')
             }
         })
+        //未通过验证执行
         .catch(err => {
             message.error('分类名不能为空')
         })

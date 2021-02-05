@@ -7,23 +7,35 @@ import PictureUpload from './pictureUpload.jsx'
 import RichTextEditor from './rich-text-editor.jsx'
 const {TextArea} = Input
 export default class AddProduct extends React.Component{
+
     state={
         options:[
         ]
     }
+    //创建form表单的ref
     form = React.createRef()
+    //创建pictureWall的ref
     pw = React.createRef()
+    //创建富文本编辑器的ref
     editor = React.createRef()
 
+    //获取选择一级分类后出现的二级分类的
     loadData = async selectedOptions => {
+        //获取当前选中的一级分类
         const targetOption = selectedOptions[0];
+        //出现加载的动画
         targetOption.loading = true;
         // load options lazily
         
+        //获取二级分类信息
         const res = await this.getCategory(targetOption.value)
+        //如果有二级分类
         if(res && res.length>0){
+            //创建当前一级分类的子属性
             targetOption['children'] = []
+            //停止加载动画
             targetOption.loading = false;
+            //将二级分类添加到数组中
             res.map(item => {
                 return targetOption['children'].push({
                     value:item._id,
@@ -31,8 +43,11 @@ export default class AddProduct extends React.Component{
                     isLeaf:true
                 })
             })
+        //无二级分类
         }else{
+            //停止加载动画
             targetOption.loading = false;
+            //将当前一级分类设为叶子节点
             targetOption.isLeaf = true
         }
         this.setState({
@@ -40,7 +55,8 @@ export default class AddProduct extends React.Component{
         })
         
       };
-
+    
+    //验证
     validateNumber(rules,value){
         if(value*1 > 0){
             return Promise.resolve()
@@ -49,8 +65,10 @@ export default class AddProduct extends React.Component{
         }
     }
     
+    //初始化分类列表
     initeCategory = async (categories) => {
         const options =[]
+        //添加分类
         categories.map(item => {
            return options.push({
                 value:item._id,
@@ -59,10 +77,11 @@ export default class AddProduct extends React.Component{
             })
         })
         
+        //如果是修改商品
         if(this.isPut ){
             const {pCategoryId,categoryId} = this.product
             if(pCategoryId !== '0'){
-                console.log('in')
+                //根据一级分类id获取二级分类
                 const subCategory = await this.getCategory(pCategoryId)
                 const targetOption = options.find(item=>item.value === pCategoryId)
                 targetOption.children = []
@@ -83,6 +102,7 @@ export default class AddProduct extends React.Component{
     async getCategory(parentId){
         const {data:res} = await axios.get('/manage/category/list',{params:{parentId}})
         if(res.status === 0) {
+            //若分类是一级分类
             if (parentId === '0') {
                 this.initeCategory(res.data)
             }else{
@@ -90,12 +110,16 @@ export default class AddProduct extends React.Component{
             }
         }
     }
+
+    //添加或修改商品
     onSubmit = async (values) => {
+        //获取图片、细节
         const imgs = this.pw.current.getFileList()
         const detail = this.editor.current.getDetail()
         const {category,name,price,desc} = values
         console.log(values)
         let pCategoryId,categoryId
+        //判断是否是一级分类
         if(category.length === 1){
             pCategoryId = '0'
             categoryId = category[0]
@@ -103,6 +127,7 @@ export default class AddProduct extends React.Component{
             pCategoryId = category[0]
             categoryId = category[1]
         }
+        //判断是否是修改商品
         if(!this.isPut){
             const product = {name,detail,imgs,desc,price,pCategoryId,categoryId}
             console.log(product)
@@ -110,23 +135,25 @@ export default class AddProduct extends React.Component{
             if(res.status === 0) {
                 message.success('添加商品成功')
             }
-            this.props.history.goBack()
         }else{
+            //修改商品需要传值_id
             const {_id} = this.product
             const product = {name,detail,imgs,desc,price,pCategoryId,categoryId,_id}
             const {data:res} = await axios.post('/manage/product/update',product)
             if(res.status === 0) {
                 message.success('更新商品成功')
             }
-            this.props.history.goBack()
         }
-        
+        //修改后返回
+        this.props.history.goBack()
     }
 
+    
     UNSAFE_componentWillMount () {
         const product = this.props.location.state
         this.isPut = !!product
         this.product = product || {}
+        //判断是否是更改商品
         if (this.isPut){
             const {pCategoryId,categoryId} = product
             if(pCategoryId === '0'){
@@ -137,6 +164,7 @@ export default class AddProduct extends React.Component{
         }
     }
 
+    //获取一级分类
     componentDidMount(){
         this.getCategory('0')
     }

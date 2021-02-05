@@ -5,8 +5,11 @@ const {Option} = Select
 
 
 export default function AddForm (props) {
+    //获取form表单
     const [form] = Form.useForm()
+    //获取父组件传来的属性
     const {parentId,dataSource} = props
+    //将form表单传到category组件
     props.setForm(form)
         return(
             <Form

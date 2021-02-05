@@ -46,6 +46,7 @@ export default class Home extends React.Component{
         pageSize:3
     }
 
+    //更新商品状态
     updateStatus = async (productId, status) => {
         const {data:result} = await axios.post('/manage/product/updateStatus',{productId,status})
         if(result.status===0) {
@@ -54,6 +55,7 @@ export default class Home extends React.Component{
         }
       }
 
+    //获取商品
     getProducts = async (pageNum) => {
         this.pageNum = pageNum
         const {data:res} = await axios.get('/manage/product/list',{params:{pageNum:pageNum,pageSize:this.state.pageSize}})

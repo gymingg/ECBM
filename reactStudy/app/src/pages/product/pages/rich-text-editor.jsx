@@ -6,6 +6,7 @@ import htmlToDraft from 'html-to-draftjs'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import BaseRoute from '../../../static/router.js'
 
+//富文本编辑器，具体用法可看react-draft-wysiwyg官方文档 
 export default class RichTextEditor extends React.Component{
   state = {
     editorState:EditorState.createEmpty()

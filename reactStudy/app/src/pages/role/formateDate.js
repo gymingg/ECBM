@@ -1,3 +1,4 @@
+//格式化时间工具
 export default function formateDate(time) {
     if (!time) return ''
     let date = new Date(time)

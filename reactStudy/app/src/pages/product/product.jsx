@@ -4,6 +4,7 @@ import AddProduct from './pages/addProduct.jsx'
 import Home from './pages/home.jsx'
 import Detail from './pages/detail.jsx'
 
+//商品页面组件
 export default class Product extends React.Component{
     render(){
         return(

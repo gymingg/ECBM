@@ -4,6 +4,7 @@ import image from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import menuInfo from '../../static/menuList.js'
+import store from 'store'
 const { SubMenu } = Menu;
 export default class LeftNav extends React.Component {
     constructor(props){
@@ -11,6 +12,21 @@ export default class LeftNav extends React.Component {
         this.menuNodes = []
         this.openKey = ''
     }
+
+    hasAuth = (item) => {
+      const {key,children,isPublic} = item
+      const user = store.get('user')
+      const {role,username} = user
+      const menus = role.menus
+      if( username == "admin" || menus.indexOf(key) !== -1 || isPublic ) {
+        return true
+      }else if(children) {
+        return children.find(citem => menus.indexOf(citem.key) !== -1)
+      }
+
+      return false
+    }
+
     //动态渲染menu.item标签
     renderMenu(menuList){
         /**
@@ -28,19 +44,23 @@ export default class LeftNav extends React.Component {
         }
         return menuList.reduce( (pre,item) => {
             //判断是否有子标签
-            if (!item.children) {
-                //无子标签则渲染menu.item
-              pre.push(<Menu.Item key={item.key} icon={item.icon}>
-                <Link to={item.key}>{item.title}</Link>
-            </Menu.Item>)
-            }else {
-                const isOpenKey = item.children.find( citem => citem.key === path)
-                if(isOpenKey){
-                    this.openKey = item.key
-                }
-              pre.push(<SubMenu key={item.key} icon={item.icon} title={item.title}>
-                {this.renderMenu(item.children)}
-                </SubMenu>)
+            if(this.hasAuth(item)) {
+              console.log(item)
+                if (!item.children) {
+                  //无子标签则渲染menu.item
+                pre.push(<Menu.Item key={item.key} icon={item.icon}>
+                  <Link to={item.key}>{item.title}</Link>
+              </Menu.Item>)
+                }else {
+                  const isOpenKey = item.children.find( citem => citem.key === path)
+                  if(isOpenKey){
+                      this.openKey = item.key
+                  }
+                pre.push(<SubMenu key={item.key} icon={item.icon} title={item.title}>
+                  {this.renderMenu(item.children)}
+                  </SubMenu>)
+              }
+              console.log(pre)
             }
             return pre
         },[])
