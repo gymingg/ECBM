@@ -1,4 +1,4 @@
-##项目描述##
+## 项目描述
 
 该项目为电商后台管理单页面应用项目
 
@@ -6,18 +6,19 @@
 
 技术栈：react react-router antd axios es6
 
-##启动##
-#### 通过npm start 启动reactECBM的客户端 通过node serve.js启动服务器端####
+## 启动
 
-####后端端口默认绑定5000####
+#### 通过npm start 启动reactECBM的客户端 通过node serve.js启动服务器端
 
-##目录结构##
+#### 后端端口默认绑定5000
 
-####build####
+## 目录结构
 
----- 打包后的文件
+#### build
 
-####src####
+  ---- 打包后的文件
+
+#### src
 
 |  assets---logo.png  *logo图片*
 
@@ -62,12 +63,9 @@
 		|user.jsx 用户管理页面主页
 
 |   static ---*静态文件*
-	
+
 	1.menuList.js 左侧菜单栏的属性
 
 	2.router.js 设置服务端url
-
-####
-
 
 
